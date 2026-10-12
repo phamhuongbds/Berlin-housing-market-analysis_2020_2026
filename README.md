@@ -783,7 +783,7 @@ save(fig, "q5_buy_vs_rent")
 - **The data looks artificially generated.** Some patterns are unusually regular (for example, the monthly panel shows almost the same yield in every district). Read the findings as *what this dataset shows*, not as established facts about the real Berlin market.
 - **Association, not cause.** Showing that mortgage rates rose while prices dipped does not prove one caused the other, and a better energy class is not guaranteed to raise a flat's price.
 - **Simple comparisons.** The yield is calculated from medians and does not account for flat size or age. In a more detailed version of this analysis I adjusted for these (a regression), and the pattern was the same.
-- **Buy vs. rent (Q5) is a simplified monthly comparison.** The loan payment includes repayment, which builds up the owner's equity, so it is not a pure cost. It leaves out purchase costs (transfer tax, notary, agent), maintenance, property tax and what the cash down payment could earn elsewhere. The 80% loan and 2% repayment are my assumptions.
+- **Buy vs. rent (Q5) is a simplified monthly comparison.** The loan payment includes repayment, which builds up the owner's equity, so it is not a pure cost. It leaves out purchase costs (transfer tax, notary, agent), maintenance, property tax and what the cash down payment could earn elsewhere. 
 - **Next steps:** add the new-build file and compare new-build against resale prices, use the station file to measure the effect of public transport, and build a regression that holds all features constant at once.
 
 ---
