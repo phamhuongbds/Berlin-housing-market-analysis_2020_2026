@@ -795,3 +795,8 @@ The charts and tables above come from the notebook [`berlin_housing_analysis.ipy
 1. Download three files from the Kaggle dataset [*Berlin Real Estate: Sales & Rentals 2020-2026*](https://www.kaggle.com/datasets/sergionefedov/berlin-real-estate-sales-and-rentals-2020-2026) (`secondary_sales.csv`, `rentals.csv`, `kiez_prices_monthly.csv`) and place them in a folder called `data/`. The data is not included in this repository.
 2. Install the libraries: `pip install -r requirements.txt`
 3. Open the notebook with `jupyter notebook` and run all cells from top to bottom. The charts are also saved to `figures/`.
+
+---
+# Acknowledgements
+
+I created this project with the help of Claude, an AI assistant by Anthropic. Claude helped me plan the structure and business questions, write and debug the Python code, and draft the explanatory text. I [chose the dataset and the business questions I wanted to focus on / reviewed and ran all of the code / checked the results against the output / edited the text in my own words]. The data comes from the Kaggle dataset Berlin Real Estate: Sales & Rentals 2020-2026 by Sergio Nefedov.
