@@ -7,7 +7,7 @@
 
 **Context.** After the Covid-19 pandemic, the war in Ukraine, and the energy crisis, inflation in Europe rose sharply. To bring it down, the ECB raised interest rates from mid-2022, and mortgages became much more expensive. In this dataset, the average mortgage rate rises from 1.16% in December 2020 to 4.1% in mid-2023 and then eases to 3.8% in April 2026, while rents keep rising. [*Germany: Mortgage credit interest*](https://www.theglobaleconomy.com/Germany/mortgage_interest_rate/). Anyone deciding where to rent, buy or invest in Berlin needs to know what the data shows: how prices and rents moved, where, and what drives the differences.
 
-**Goal.** Answer five business questions for people who rent, buy, or invest in Berlin, using real-looking listing data.
+**Goal.** Answer five business questions for people who rent, buy, invest or search for real estate information in Berlin, using real-looking listing data.
 
 **Data.** [*Berlin Real Estate: Sales & Rentals 2020-2026*](https://www.kaggle.com/datasets/sergionefedov/berlin-real-estate-sales-and-rentals-2020-2026) on Kaggle (Sergio Nefedov). I use three of its files:
 
