@@ -51,18 +51,6 @@ Before analysing, I check whether the data is complete and unique.
 ![Gross rental yield by district](figures/q3_yield.png)
 ![Buying vs. renting](figures/q5_buy_vs_rent.png)
 
-## Data
-[Berlin Real Estate: Sales & Rentals 2020-2026](https://www.kaggle.com/datasets/sergionefedov/berlin-real-estate-sales-and-rentals-2020-2026) (Kaggle, Sergio Nefedov). Three of the five files are used. The data is **not** included in this repository; download it and place the CSVs in `data/` (see `data/README.txt`).
-
-## How to run
-```bash
-pip install -r requirements.txt
-jupyter notebook berlin_housing_analysis.ipynb
-```
-Run all cells from top to bottom. Charts are also saved to `figures/`.
-
-## Skills demonstrated
-Data cleaning and quality checks · exploratory analysis with pandas (`groupby`, medians, indices, binning) · comparing like with like (price relative to the same district and year) · financial metric design (gross rental yield vs. mortgage rate, loan payment vs. rent with explicit assumptions) · clear data visualisation · business storytelling ("So what?" per question) · stating limitations honestly.
 
 ## Limitations
 - Listing (asking) prices, not transaction prices.
