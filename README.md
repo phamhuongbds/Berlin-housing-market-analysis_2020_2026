@@ -7,7 +7,7 @@
 
 **Context.** After the Covid-19 pandemic, the war in Ukraine, and the energy crisis, inflation in Europe rose sharply. To bring it down, the ECB raised interest rates from mid-2022, and mortgages became much more expensive. In this dataset, the average mortgage rate rises from 1.16% in December 2020 to 4.1% in mid-2023 and then eases to 3.8% in April 2026, while rents keep rising. [*Germany: Mortgage credit interest*](https://www.theglobaleconomy.com/Germany/mortgage_interest_rate/). Anyone deciding where to rent, buy or invest in Berlin needs to know what the data shows: how prices and rents moved, where, and what drives the differences.
 
-**Goal.** Answer five business questions for people who rent, buy, invest or search for real estate information in Berlin, using real-looking listing data.
+**Goal.** Answer five business questions for people who rent, buy, or invest in Berlin, using real-looking listing data.
 
 **Data.** [*Berlin Real Estate: Sales & Rentals 2020-2026*](https://www.kaggle.com/datasets/sergionefedov/berlin-real-estate-sales-and-rentals-2020-2026) on Kaggle (Sergio Nefedov). I use three of its files:
 
@@ -517,52 +517,58 @@ energy_order = ["A_plus", "A", "B", "C", "D", "E", "F", "G", "H"]
 energy = pd.DataFrame({"resale": sales.groupby("energy_class")["vs_local_%"].median(),
                        "rent": rent.groupby("energy_class")["vs_local_%"].median()}).reindex(energy_order)
 energy.index = ["A+", "A", "B", "C", "D", "E", "F", "G", "H"]
+
 era_order = ["post_war_1949_1990", "modern_1990_2010", "altbau_pre_1949", "new_post_2010"]
 era = sales.groupby("building_era")["vs_local_%"].median().reindex(era_order)
-era.index = ["1949–\n1990", "1990–\n2010", "Altbau\n(<1949)", "New\n(2010+)"]
+era.index = ["1949–1990", "1990–2010", "Altbau (<1949)", "New (2010+)"]
+
 cond_order = ["renovierungsbedürftig", "renoviert", "modernisiert", "saniert", "kernsaniert"]
 cond = sales.groupby("condition")["vs_local_%"].median().reindex(cond_order)
-cond.index = ["Needs\nrenovation", "Renoviert", "Moder-\nnisiert", "Saniert", "Kern-\nsaniert"]
+cond.index = ["Needs renovation", "Renoviert", "Modernisiert", "Saniert", "Kernsaniert"]
 
-display(energy.rename(columns={"resale": "resale vs. local median, %", "rent": "rent vs. local median, %"}).round(1))
-display(era.to_frame("resale vs. local median, %").round(1))
-display(cond.to_frame("resale vs. local median, %").round(1))
+display(energy.rename(columns={"resale": "resale vs. local median, %", "rent": "rent vs. local median, %"}).style.format("{:.1f}"))
+display(era.to_frame("resale vs. local median, %").style.format("{:.1f}"))
+display(cond.to_frame("resale vs. local median, %").style.format("{:.1f}"))
 ```
 
 </details>
 
 |  | resale vs. local median, % | rent vs. local median, % |
 |---|---:|---:|
-| A+ | 50.00 | 45.40 |
-| A | 38.90 | 35.00 |
-| B | 25.00 | 21.30 |
-| C | 11.70 | 10.20 |
-| D | 2.40 | 1.90 |
-| E | -2.10 | -1.20 |
-| F | -7.50 | -5.50 |
-| G | -14.40 | -12.60 |
-| H | -20.20 | -18.90 |
+| A+ | 50.0 | 45.4 |
+| A | 38.9 | 35.0 |
+| B | 25.0 | 21.3 |
+| C | 11.7 | 10.2 |
+| D | 2.4 | 1.9 |
+| E | -2.1 | -1.2 |
+| F | -7.5 | -5.5 |
+| G | -14.4 | -12.6 |
+| H | -20.2 | -18.9 |
 
 |  | resale vs. local median, % |
 |---|---:|
-| 1949–\n1990 | -11.10 |
-| 1990–\n2010 | 17.10 |
-| Altbau\n(<1949) | -2.20 |
-| New\n(2010+) | 42.70 |
+| 1949–1990 | -11.1 |
+| 1990–2010 | 17.1 |
+| Altbau (<1949) | -2.2 |
+| New (2010+) | 42.7 |
 
 |  | resale vs. local median, % |
 |---|---:|
-| Needs\nrenovation | -22.40 |
-| Renoviert | -5.30 |
-| Moder-\nnisiert | 0.70 |
-| Saniert | 6.20 |
-| Kern-\nsaniert | 13.50 |
+| Needs renovation | -22.4 |
+| Renoviert | -5.3 |
+| Modernisiert | 0.7 |
+| Saniert | 6.2 |
+| Kernsaniert | 13.5 |
 
 <details>
 <summary>Show code</summary>
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(13.5, 4.4), gridspec_kw={"width_ratios": [1.5, 1, 1.1], "wspace": 0.32})
+
+# Line breaks are used only for the chart labels, so the tables above stay clean
+era_labels = ["1949–\n1990", "1990–\n2010", "Altbau\n(<1949)", "New\n(2010+)"]
+cond_labels = ["Needs\nrenovation", "Renoviert", "Moder-\nnisiert", "Saniert", "Kern-\nsaniert"]
 
 # Energy class: resale and rent
 ax = axes[0]
@@ -579,7 +585,7 @@ ax.bar(range(len(era)), era.values, color=BLUE, width=0.6)
 ax.axhline(0, color=INK, lw=1)
 for i, v in enumerate(era.values):
     ax.text(i, v + (1.5 if v >= 0 else -1.5), f"{v:+.0f}%", ha="center", va="bottom" if v >= 0 else "top", fontsize=9)
-ax.set_xticks(range(len(era))); ax.set_xticklabels(era.index, fontsize=8.5); ax.set_title("Building age")
+ax.set_xticks(range(len(era))); ax.set_xticklabels(era_labels, fontsize=8.5); ax.set_title("Building age")
 ax.set_ylim(era.min() * 1.5, era.max() * 1.15)
 
 # Condition
@@ -588,7 +594,7 @@ ax.bar(range(len(cond)), cond.values, color=BLUE, width=0.6)
 ax.axhline(0, color=INK, lw=1)
 for i, v in enumerate(cond.values):
     ax.text(i, v + (1.5 if v >= 0 else -1.5), f"{v:+.0f}%", ha="center", va="bottom" if v >= 0 else "top", fontsize=9)
-ax.set_xticks(range(len(cond))); ax.set_xticklabels(cond.index, fontsize=8.5); ax.set_title("Condition (resale only)")
+ax.set_xticks(range(len(cond))); ax.set_xticklabels(cond_labels, fontsize=8.5); ax.set_title("Condition (resale only)")
 ax.set_ylim(cond.min() * 1.3, cond.max() * 1.25)
 
 for ax in axes:
@@ -783,7 +789,7 @@ save(fig, "q5_buy_vs_rent")
 - **The data looks artificially generated.** Some patterns are unusually regular (for example, the monthly panel shows almost the same yield in every district). Read the findings as *what this dataset shows*, not as established facts about the real Berlin market.
 - **Association, not cause.** Showing that mortgage rates rose while prices dipped does not prove one caused the other, and a better energy class is not guaranteed to raise a flat's price.
 - **Simple comparisons.** The yield is calculated from medians and does not account for flat size or age. In a more detailed version of this analysis I adjusted for these (a regression), and the pattern was the same.
-- **Buy vs. rent (Q5) is a simplified monthly comparison.** The loan payment includes repayment, which builds up the owner's equity, so it is not a pure cost. It leaves out purchase costs (transfer tax, notary, agent), maintenance, property tax and what the cash down payment could earn elsewhere. 
+- **Buy vs. rent (Q5) is a simplified monthly comparison.** The loan payment includes repayment, which builds up the owner's equity, so it is not a pure cost. It leaves out purchase costs (transfer tax, notary, agent), maintenance, property tax and what the cash down payment could earn elsewhere. The 80% loan and 2% repayment are my assumptions.
 - **Next steps:** add the new-build file and compare new-build against resale prices, use the station file to measure the effect of public transport, and build a regression that holds all features constant at once.
 
 ---
@@ -795,8 +801,3 @@ The charts and tables above come from the notebook [`berlin_housing_analysis.ipy
 1. Download three files from the Kaggle dataset [*Berlin Real Estate: Sales & Rentals 2020-2026*](https://www.kaggle.com/datasets/sergionefedov/berlin-real-estate-sales-and-rentals-2020-2026) (`secondary_sales.csv`, `rentals.csv`, `kiez_prices_monthly.csv`) and place them in a folder called `data/`. The data is not included in this repository.
 2. Install the libraries: `pip install -r requirements.txt`
 3. Open the notebook with `jupyter notebook` and run all cells from top to bottom. The charts are also saved to `figures/`.
-
----
-## Acknowledgements
-
-I created this project with the help of Claude, an AI assistant by Anthropic. Claude helped me plan the structure and business questions, write and debug the Python code, and draft the explanatory text. I [chose the dataset and the business questions I wanted to focus on / reviewed and ran all of the code / checked the results against the output / edited the text in my own words]. The data comes from the Kaggle dataset Berlin Real Estate: Sales & Rentals 2020-2026 by Sergio Nefedov.
